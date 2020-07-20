@@ -1,0 +1,37 @@
+.createPost {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.createPost-wrapper {
+    width: 100%;
+    align-items: center;
+    flex-direction: column;
+}
+
+.createPost-table{
+    width: 100%;
+}
+
+.cratePost-table-headers {
+    background-color: #f3f3f3;
+    font-weight: 600;
+}
+
+.createPost-table-postTitle {
+    width: 80%;
+}
+
+.createPost-table-option {
+    width: 20%;
+}
+
+.createPost-wrapper form {
+    display: flex;
+    flex-direction: column;
+}
+
+.createPost-wrapper button {
+    width: 80px;
+}
