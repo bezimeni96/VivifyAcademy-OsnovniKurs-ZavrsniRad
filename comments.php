@@ -1,12 +1,10 @@
 <?php
 
-    $sqlSelect="SELECT author, text FROM comments WHERE post_id=$index ORDER BY id DESC";
+    $sqlSelect="SELECT author, text FROM comments WHERE post_id=$index ORDER BY id DESC LIMIT 5";
     $statement=$connection->prepare($sqlSelect);
     $statement->execute();
     $statement->setFetchMode(PDO::FETCH_ASSOC);
     $comments = $statement->fetchAll();
-
-    
 ?>
 
 <div>
@@ -24,6 +22,7 @@
             <?php } ?>
         </ul>
     <?php } ?>
+    <br>
 </div>
 
 <script src="commentsButtons.js"></script>
