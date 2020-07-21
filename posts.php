@@ -73,6 +73,7 @@
         <?php include 'sidebar.php'; ?>
 
     </div><!-- /.row -->
+    
 </main><!-- /.container -->
 
 <?php
