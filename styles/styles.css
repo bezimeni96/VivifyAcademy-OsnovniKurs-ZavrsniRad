@@ -18,7 +18,7 @@ h1, h2, h3, h4, h5, h6 {
     color: #b34848;
 }
 
-.comments {
+.comments-container {
     margin: 0;
     padding: 0;
     list-style: none;
@@ -27,6 +27,11 @@ h1, h2, h3, h4, h5, h6 {
 .comment {
     display: flex;
     flex-direction: column;
+}
+
+.comments-line-break {
+    width: 100%;
+    border: #999 0,2px solid;
 }
 
 
