@@ -1,17 +1,12 @@
 <?php
   require('database.php');
 
-  function test_input($data) {
-      $data = trim($data);
-      $data = stripslashes($data);
-      $data = htmlspecialchars($data);
-      return $data;
-  }
+  include 'test-input.php';
 
   $author = $text ='';
   $authorErr = $textErr = '';
 
-  if ($_SERVER['REQUEST_METHOD'] == 'POST') { 
+  if ($_SERVER['REQUEST_METHOD'] == 'POST' && !isset($_POST['confirmDelete'])) { 
       if (empty($_POST["author"])) {
           $authorErr = "*Name is required";
         } else {

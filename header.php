@@ -22,8 +22,8 @@
     <div class="blog-masthead">
         <div class="container">
             <nav class="nav">
-                <a class="nav-link active" href="posts.php">Home</a>
-                <a class="nav-link" href="create.php">Create</a>
+                <a class="nav-link <?php if ($_SERVER['PHP_SELF'] === "/posts.php") echo "active"?>" href="posts.php">Home</a>
+                <a class="nav-link <?php if ($_SERVER['PHP_SELF'] === "/create.php") echo "active"?>" href="create.php">Create</a>
             </nav>
         </div>
     </div>

@@ -26,6 +26,10 @@
                 <p class="blog-post-meta"><?php echo $singleBlog['created_at']; ?> by <a href="#"><?php echo $singleBlog['author']; ?></a></p>
 
                 <p><?php echo $singleBlog['body'] ?></p>
+
+                <br>
+                <?php include 'delete-post.php'; ?>
+                
             </div><!-- /.blog-post -->
 
             <?php include 'create-comment.php'; ?>

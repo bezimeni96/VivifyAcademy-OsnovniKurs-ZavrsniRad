@@ -8,7 +8,7 @@
 
 <div>
     <?php if (count($comments) == 0) {
-        echo 'Be the first who commented';
+        echo 'Let your comment be the first!';
     } else { ?>
         <button class="btn btn-default" id="showHideBtn">Hide comments</button>
         

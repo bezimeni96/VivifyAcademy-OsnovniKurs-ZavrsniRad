@@ -1,12 +1,7 @@
 <?php
   require('database.php');
 
-  function test_input($data) {
-      $data = trim($data);
-      $data = stripslashes($data);
-      $data = htmlspecialchars($data);
-      return $data;
-  }
+  include 'test-input.php';
 
   $author = $postTitle = $body = '';
   $authorErr = $postTitleErr = $bodyErr = '';
@@ -40,7 +35,7 @@
       <div class="alert alert-danger">
         <strong>Danger!</strong> You didn't fill all input fields.
       </div>
-     <?php }
+     <?php }  
 
 }
 ?>

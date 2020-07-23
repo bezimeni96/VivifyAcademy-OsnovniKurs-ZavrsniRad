@@ -17,12 +17,3 @@ function showHideComments () {
     }
 }
 
-
-// var deleteCommentBtns = document.querySelectorAll("#deleteComment");
-// deleteCommentBtns.forEach(function (el) {
-    // el.addEventListener("click", deleteComment)
-// })
-// 
-// function deleteComment () {
-    // console.log ("comment deleted");
-// }
