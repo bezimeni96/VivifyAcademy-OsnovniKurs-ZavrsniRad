@@ -24,16 +24,26 @@ h1, h2, h3, h4, h5, h6 {
     list-style: none;
 }
 
-.comment {
+/*.comment {
     display: flex;
     flex-direction: column;
-}
+}*/
 
 .comments-line-break {
     width: 100%;
     border: #999 0,2px solid;
 }
 
+
+/*.create-comment {
+    display: flex;
+    flex-direction: column;
+}*/
+
+.btn-create-comment {
+    width: 80px;
+    margin-top: 10px;
+}
 
 /*.createPost {
     display: flex;

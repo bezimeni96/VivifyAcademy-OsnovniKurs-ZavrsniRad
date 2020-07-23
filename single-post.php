@@ -7,8 +7,9 @@
     
         require('database.php');
         
-        $sqlSelect = "SELECT id, title, created_at, body, author FROM posts WHERE id = $index";
+        $sqlSelect = "SELECT id, title, created_at, body, author FROM posts WHERE id =:post_id";
         $statement = $connection->prepare($sqlSelect);
+        $statement->bindParam(':post_id', $_GET['post_id']);
         $statement->execute();
         $statement->setFetchMode(PDO::FETCH_ASSOC);
         $singleBlog = $statement->fetch();
@@ -26,6 +27,8 @@
 
                 <p><?php echo $singleBlog['body'] ?></p>
             </div><!-- /.blog-post -->
+
+            <?php include 'create-comment.php'; ?>
 
             <?php include 'comments.php'; ?>
             

@@ -1,23 +1,27 @@
 <?php
-
-    $sqlSelect="SELECT author, text FROM comments WHERE post_id=$index ORDER BY id DESC LIMIT 5";
+    $sqlSelect="SELECT id, author, text FROM comments WHERE post_id=? ORDER BY id DESC";
     $statement=$connection->prepare($sqlSelect);
-    $statement->execute();
+    $statement->execute([$index]);
     $statement->setFetchMode(PDO::FETCH_ASSOC);
     $comments = $statement->fetchAll();
 ?>
 
 <div>
     <?php if (count($comments) == 0) {
-        echo 'budi prvi koji ce komentarisati';
+        echo 'Be the first who commented';
     } else { ?>
         <button class="btn btn-default" id="showHideBtn">Hide comments</button>
+        
         <ul class="comments-container">
             <?php foreach ($comments as $comment) { ?>
                 <li class="comment">
                     <hr class="comments-line-break">
-                    <span><?php echo $comment['author']; ?></span>
+                    <span><?php echo $comment['author']; ?></span> <br>
                     <p><?php echo $comment['text']; ?></p>
+
+                    <?php include 'delete-comment.php'; ?>
+                    
+
                 </li>
             <?php } ?>
         </ul>
