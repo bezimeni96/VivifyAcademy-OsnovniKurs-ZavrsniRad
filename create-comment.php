@@ -48,7 +48,7 @@
 
         Author 
         <span style="color: red;" ><?php if ($author == "") echo $authorErr; ?></span> <br>
-        <input type="text" name="author" id="" placeholder="Insert your name" value="<?php if ($author !== "") echo $author; ?>" style="width: 100% "> <br>
+        <input type="text" name="author" placeholder="Insert your name" value="<?php if ($author !== "") echo $author; ?>" style="width: 100% "> <br>
 
         Your comment 
         <span style="color: red;"><?php if ($text == "") echo $textErr; ?></span> <br>
