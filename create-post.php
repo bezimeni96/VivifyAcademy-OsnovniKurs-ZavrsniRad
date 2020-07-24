@@ -1,52 +1,89 @@
 <?php
-  require('database.php');
+    require('database.php');
 
-  include 'test-input.php';
+    include 'test-input.php';
 
-  $author = $postTitle = $body = '';
-  $authorErr = $postTitleErr = $bodyErr = '';
+    $firstName = $lastName = $postTitle = $body = '';
+    $firstNameErr = $lastNameErr = $postTitleErr = $bodyErr = '';
 
-  if ($_SERVER['REQUEST_METHOD'] == 'POST') { 
-      if (empty($_POST["author"])) {
-        $authorErr = "*Name is required";
-      } else {
-          $author = test_input($_POST["author"]);
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') { 
+        if (empty($_POST["firstName"])) {
+            $firstNameErr = "*First name is required";
+        } else {
+        $firstName = test_input($_POST["firstName"]);
         }
 
-      if (empty($_POST["postTitle"])) {
-          $postTitleErr = "*Your post title is empty";
+        if (empty($_POST["lastName"])) {
+            $lastNameErr = "*Last name is required";
         } else {
-          $postTitle = test_input($_POST["postTitle"]);
+            $lastName = test_input($_POST["lastName"]);
+        }
+
+        if (empty($_POST["postTitle"])) {
+            $postTitleErr = "*Your post title is empty";
+        } else {
+            $postTitle = test_input($_POST["postTitle"]);
         }  
-      
-      if (empty($_POST["body"])) {
-          $bodyErr = "*Post content is empty";
+        
+        if (empty($_POST["body"])) {
+            $bodyErr = "*Post content is empty";
         } else {
-          $body = test_input($_POST["body"]);
+            $body = test_input($_POST["body"]);
         } 
 
-     if(($author !== '') && ($body !== '' ) && ($postTitle !== '')) {
-          $sqlInsert = "INSERT INTO posts (author, title, body) VALUES (?, ?, ?);";
-          $statement = $connection->prepare($sqlInsert);
-          $statement->execute([$author, $postTitle, $body]);
+        if(($firstName !== '') && ($lastName !== '') && ($body !== '' ) && ($postTitle !== '')) {
 
-          header("Location:posts.php");
-     } else { ?>
-      <div class="alert alert-danger">
-        <strong>Danger!</strong> You didn't fill all input fields.
-      </div>
-     <?php }  
+            function insertPost($connection, $postTitle, $body, $userId) {
+                $sqlInsert = "INSERT INTO posts (title, body, user_id) VALUES (?, ?, ?);";
+                $statement = $connection->prepare($sqlInsert);
+                $statement->execute([$postTitle, $body, $userId]);
+            }
 
-}
+            function getUserID($connection, $firstName, $lastName) {
+                $sqlSelect = "SELECT id FROM users WHERE first_name=? and last_name=?";
+                $statement=$connection->prepare($sqlSelect);
+                $statement->execute([$firstName, $lastName]);
+                $statement->setFetchMode(PDO::FETCH_ASSOC);
+                $result = $statement->fetch();
+                return $result['id'];
+            }
+
+            $userId = 0;
+            $userId = getUserID($connection, $firstName, $lastName);
+            
+            if ($userId !== NULL) {
+                insertPost($connection, $postTitle, $body, $userId);
+            } else {
+                $sqlInsert = "INSERT INTO users (first_name, last_name) VALUES (?, ?);";
+                $statement = $connection->prepare($sqlInsert);
+                $statement->execute([$firstName, $lastName]);
+
+                $userId = getUserID($connection, $firstName, $lastName);
+                insertPost($connection, $postTitle, $body, $userId);
+            }
+
+            header("Location:posts.php");
+        } else { ?>
+            <div class="alert alert-danger">
+                <strong>Danger!</strong> You didn't fill all input fields.
+            </div>
+        <?php }  
+    }
 ?>
 
 
 
 <h2>Add new post</h2>
 <form action="<?php echo $_SERVER['PHP_SELF']; ?>?create-post.php" method="POST">
-    Author
-    <span style="color: red;" ><?php if ($author == "") echo $authorErr; ?></span> <br>
-    <input type="text" name="author" placeholder="Insert your name" value="<?php if ($author !== "") echo $author; ?>" style="width: 100% "> <br>
+    <div>
+        First name
+        <span style="color: red;" ><?php if ($firstName == "") echo $firstNameErr; ?></span> <br>
+        <input type="text" name="firstName" placeholder="Insert your first name" value="<?php if ($firstName !== "") echo $firstName; ?>" style="width: 100% "> <br>
+
+        Last name
+        <span style="color: red;" ><?php if ($lastName == "") echo $lastNameErr; ?></span> <br>
+        <input type="text" name="lastName" placeholder="Insert your last name" value="<?php if ($lastName !== "") echo $lastName; ?>" style="width: 100% "> <br>
+    </div>
 
     Post title
     <span style="color: red;" ><?php if ($postTitle == "") echo $postTitleErr; ?></span> <br>
@@ -54,8 +91,7 @@
 
     Post content 
     <span style="color: red;" ><?php if ($body == "") echo $bodyErr; ?></span> <br>
-    <textarea name="body" placeholder="Insert post content" value="<?php if ($body !== "") echo $body; ?>" cols="30" rows="10" style="width: 100% "></textarea> <br>
+    <textarea name="body" placeholder="Insert post content" cols="30" rows="10" style="width: 100% "><?php if ($body !== "") echo $body; ?></textarea> <br>
     <br>
     <button type="submit" class="btn btn-default">Send</button> <br>
-</form>
-            
+</form>            

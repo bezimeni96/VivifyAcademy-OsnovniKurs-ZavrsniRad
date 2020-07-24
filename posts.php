@@ -1,7 +1,8 @@
 <?php
     require('database.php');
 
-    $sqlSelect = "SELECT id, title, body, author, created_at FROM posts ORDER BY created_at DESC";
+    $sqlSelect = "SELECT p.id id, p.title title, p.body body, p.created_at created_at, u.first_name first_name, u.last_name last_name FROM posts p
+    INNER JOIN users u on p.user_id = u.id ORDER BY created_at DESC";
     $statement=$connection->prepare($sqlSelect);
     $statement->execute();
     $statement->setFetchMode(PDO::FETCH_ASSOC);

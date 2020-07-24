@@ -28,14 +28,4 @@
     <button type="submit" class="btn btn-default" id="deletePost">Delete this post</button> <br>
 </form>
 
-<script>
-    var deletePostBtn = document.getElementById("deletePost");
-    deletePostBtn.addEventListener("click", confirmDeleting);
-
-    function confirmDeleting () {
-        var r = confirm("Do you really want to delete this post?");
-        if (r == true) {
-            document.getElementById("confirmDelete").value = "true";
-        }
-    }
-</script>
+<script src="delete-post.js"></script>

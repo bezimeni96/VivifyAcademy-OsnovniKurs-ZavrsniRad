@@ -30,3 +30,41 @@
 -- INSERT INTO comments (author, text, post_id) VALUE ("Sasa", "super tekst", 1);
 -- INSERT INTO comments (author, text, post_id) VALUE ("Pavle", "extra", 1);
 -- INSERT INTO comments (author, text, post_id) VALUE ("Nikola", "super tekst", 3);
+
+
+
+DODATAK
+
+-- USE blog;
+
+-- DROP TABLE comments;
+-- DROP TABLE posts;
+
+-- CREATE TABLE users (
+--     id INT AUTO_INCREMENT,
+--     first_name VARCHAR(255) NOT NULL,
+--     last_name VARCHAR(255) NOT NULL,
+--     PRIMARY KEY (id)
+-- );
+
+-- DROP TABLE posts;
+
+-- CREATE TABLE posts (
+--     id INT AUTO_INCREMENT,
+--     title VARCHAR(555) NOT NULL,
+--     body VARCHAR(2500) NOT NULL,
+--     created_at TIMESTAMP,
+--     user_id INT NOT NULL,
+--     PRIMARY KEY (id),
+--     FOREIGN KEY (user_id) REFERENCES users(id)
+-- );
+
+-- CREATE TABLE comments (
+--     id INT AUTO_INCREMENT,
+--     author VARCHAR(255) NOT NULL,
+--     text VARCHAR(555) NOT NULL,
+--     post_id INT NOT NULL,
+--     PRIMARY KEY (id),
+--     FOREIGN KEY (post_id) REFERENCES posts(id)
+-- );
+
