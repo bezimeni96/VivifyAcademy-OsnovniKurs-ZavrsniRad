@@ -1,23 +1,13 @@
 <?php
+
     require('database.php');
 
     include 'test-input.php';
 
-    $firstName = $lastName = $postTitle = $body = '';
-    $firstNameErr = $lastNameErr = $postTitleErr = $bodyErr = '';
+    $postTitle = $body = '';
+    $postTitleErr = $bodyErr = '';
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') { 
-        if (empty($_POST["firstName"])) {
-            $firstNameErr = "*First name is required";
-        } else {
-        $firstName = test_input($_POST["firstName"]);
-        }
-
-        if (empty($_POST["lastName"])) {
-            $lastNameErr = "*Last name is required";
-        } else {
-            $lastName = test_input($_POST["lastName"]);
-        }
 
         if (empty($_POST["postTitle"])) {
             $postTitleErr = "*Your post title is empty";
@@ -31,7 +21,7 @@
             $body = test_input($_POST["body"]);
         } 
 
-        if(($firstName !== '') && ($lastName !== '') && ($body !== '' ) && ($postTitle !== '')) {
+        if(($body !== '' ) && ($postTitle !== '')) {
 
             function insertPost($connection, $postTitle, $body, $userId) {
                 $sqlInsert = "INSERT INTO posts (title, body, user_id) VALUES (?, ?, ?);";
@@ -39,28 +29,8 @@
                 $statement->execute([$postTitle, $body, $userId]);
             }
 
-            function getUserID($connection, $firstName, $lastName) {
-                $sqlSelect = "SELECT id FROM users WHERE first_name=? and last_name=?";
-                $statement=$connection->prepare($sqlSelect);
-                $statement->execute([$firstName, $lastName]);
-                $statement->setFetchMode(PDO::FETCH_ASSOC);
-                $result = $statement->fetch();
-                return $result['id'];
-            }
-
-            $userId = 0;
-            $userId = getUserID($connection, $firstName, $lastName);
-            
-            if ($userId !== NULL) {
-                insertPost($connection, $postTitle, $body, $userId);
-            } else {
-                $sqlInsert = "INSERT INTO users (first_name, last_name) VALUES (?, ?);";
-                $statement = $connection->prepare($sqlInsert);
-                $statement->execute([$firstName, $lastName]);
-
-                $userId = getUserID($connection, $firstName, $lastName);
-                insertPost($connection, $postTitle, $body, $userId);
-            }
+            $userId = $_SESSION['user_id'];
+            insertPost($connection, $postTitle, $body, $userId);
 
             header("Location:posts.php");
         } else { ?>
@@ -75,15 +45,6 @@
 
 <h2>Add new post</h2>
 <form action="<?php echo $_SERVER['PHP_SELF']; ?>?create-post.php" method="POST">
-    <div>
-        First name
-        <span style="color: red;" ><?php if ($firstName == "") echo $firstNameErr; ?></span> <br>
-        <input type="text" name="firstName" placeholder="Insert your first name" value="<?php if ($firstName !== "") echo $firstName; ?>" style="width: 100% "> <br>
-
-        Last name
-        <span style="color: red;" ><?php if ($lastName == "") echo $lastNameErr; ?></span> <br>
-        <input type="text" name="lastName" placeholder="Insert your last name" value="<?php if ($lastName !== "") echo $lastName; ?>" style="width: 100% "> <br>
-    </div>
 
     Post title
     <span style="color: red;" ><?php if ($postTitle == "") echo $postTitleErr; ?></span> <br>

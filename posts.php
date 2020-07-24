@@ -1,4 +1,5 @@
 <?php
+    session_start();
     require('database.php');
 
     $sqlSelect = "SELECT p.id id, p.title title, p.body body, p.created_at created_at, u.first_name first_name, u.last_name last_name FROM posts p

@@ -23,7 +23,13 @@
         <div class="container">
             <nav class="nav">
                 <a class="nav-link <?php if ($_SERVER['PHP_SELF'] === "/posts.php") echo "active"?>" href="posts.php">Home</a>
-                <a class="nav-link <?php if ($_SERVER['PHP_SELF'] === "/create.php") echo "active"?>" href="create.php">Create</a>
+                <?php if (isset($_SESSION['user_id'])) { ?>
+                    <a class="nav-link <?php if ($_SERVER['PHP_SELF'] === "/create.php") echo "active"?>" href="create.php">Create</a>
+                    <a class="nav-link <?php if ($_SERVER['PHP_SELF'] === "/logout.php") echo "active"?>" href="logout.php">Logout</a>
+                <?php }  else { ?>
+                    <a class="nav-link <?php if ($_SERVER['PHP_SELF'] === "/login.php") echo "active"?>" href="login.php">Login</a>
+                <?php } ?>
+                
             </nav>
         </div>
     </div>

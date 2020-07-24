@@ -24,62 +24,13 @@ h1, h2, h3, h4, h5, h6 {
     list-style: none;
 }
 
-/*.comment {
-    display: flex;
-    flex-direction: column;
-}*/
-
 .comments-line-break {
     width: 100%;
     border: #999 0,2px solid;
 }
 
 
-/*.create-comment {
-    display: flex;
-    flex-direction: column;
-}*/
-
 .btn-create-comment {
     width: 80px;
     margin-top: 10px;
 }
-
-/*.createPost {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.createPost-wrapper {
-    width: 100%;
-    align-items: center;
-    flex-direction: column;
-}
-
-.createPost-table{
-    width: 100%;
-}
-
-.cratePost-table-headers {
-    background-color: #f3f3f3;
-    font-weight: 600;
-}
-
-.createPost-table-postTitle {
-    width: 80%;
-}
-
-.createPost-table-option {
-    width: 20%;
-}
-
-.createPost-wrapper form {
-    display: flex;
-    flex-direction: column;
-}
-
-.createPost-wrapper button {
-    width: 80px;
-}
-*/

@@ -1,6 +1,4 @@
-
-
-
+<?php session_start();?>
 <?php include 'header.php'; ?>
 
 <main role="main" class="container">
@@ -12,7 +10,6 @@
         <?php include 'sidebar.php'; ?>
 
     </div><!-- /.row -->
-
 </main><!-- /.container -->
 
 
