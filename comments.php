@@ -19,7 +19,11 @@
                     <span><?php echo $comment['author']; ?></span> <br>
                     <p><?php echo $comment['text']; ?></p>
 
-                    <?php include 'delete-comment.php'; ?>
+                    <form action="delete-comment.php" method="POST">
+                        <input type="hidden" name="post_id" value="<?php echo $index; ?>">
+                        <input type="hidden" name="comment_id" value="<?php echo $comment['id']; ?>">
+                        <button type="submit" class="btn btn-default">Delete this comment</button> <br>
+                    </form>
                     
 
                 </li>
@@ -29,4 +33,4 @@
     <br>
 </div>
 
-<script src="commentsButtons.js"></script>
+<script src="show-hide-comments.js"></script>

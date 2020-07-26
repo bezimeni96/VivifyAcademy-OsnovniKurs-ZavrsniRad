@@ -1,23 +1,18 @@
+<?php session_start() ?>
 <?php
-
     require('database.php');
 
     include 'test-input.php';
 
     $postTitle = $body = '';
-    $postTitleErr = $bodyErr = '';
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') { 
 
-        if (empty($_POST["postTitle"])) {
-            $postTitleErr = "*Your post title is empty";
-        } else {
-            $postTitle = test_input($_POST["postTitle"]);
+        if (!empty($_POST["title"])) {
+            $postTitle = test_input($_POST["title"]);
         }  
         
-        if (empty($_POST["body"])) {
-            $bodyErr = "*Post content is empty";
-        } else {
+        if (!empty($_POST["body"])) {
             $body = test_input($_POST["body"]);
         } 
 
@@ -32,27 +27,7 @@
             $userId = $_SESSION['user_id'];
             insertPost($connection, $postTitle, $body, $userId);
 
-            header("Location:posts.php");
-        } else { ?>
-            <div class="alert alert-danger">
-                <strong>Danger!</strong> You didn't fill all input fields.
-            </div>
-        <?php }  
+        }  
+        header("Location:posts.php");
     }
-?>
-
-
-
-<h2>Add new post</h2>
-<form action="<?php echo $_SERVER['PHP_SELF']; ?>?create-post.php" method="POST">
-
-    Post title
-    <span style="color: red;" ><?php if ($postTitle == "") echo $postTitleErr; ?></span> <br>
-    <input type="text" name="postTitle" placeholder="Insert post title" value="<?php if ($postTitle !== "") echo $postTitle; ?>" style="width: 100% "> <br>
-
-    Post content 
-    <span style="color: red;" ><?php if ($body == "") echo $bodyErr; ?></span> <br>
-    <textarea name="body" placeholder="Insert post content" cols="30" rows="10" style="width: 100% "><?php if ($body !== "") echo $body; ?></textarea> <br>
-    <br>
-    <button type="submit" class="btn btn-default">Send</button> <br>
-</form>            
+?>           

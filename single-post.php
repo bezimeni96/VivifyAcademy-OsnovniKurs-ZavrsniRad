@@ -31,11 +31,37 @@
                 <p><?php echo $singleBlog['body'] ?></p>
 
                 <br>
-                <?php include 'delete-post.php'; ?>
+                <form id="delete-post" action="<?php echo $_SERVER['PHP_SELF']; ?>?post_id=<?php echo $index; ?>" method="POST">
+                    <input type="hidden" name="post_id" value="<?php echo $index; ?>">
+                    <input type="hidden" name="confirmDelete" id="confirmDelete">
+                    <button type="submit" class="btn btn-default" id="deletePost">Delete this post</button> <br>
+                </form>
+
+                <script src="delete-post.js"></script>
                 
             </div><!-- /.blog-post -->
 
-            <?php include 'create-comment.php'; ?>
+            <div class="alert alert-danger" id="comment-alert" style="display: none;">
+                <strong>Danger!</strong> You didn't fill all input fields.
+            </div>
+            <div>
+                <form name="comment-form" action="create-comment.php" method="POST" class="create-comment" onsubmit="return validateCommentForm()">
+                    <input type="hidden" name="post_id" value="<?php echo $index; ?>">
+
+                    Author 
+                    <span id="authorErr" style="color: red;" ></span> <br>
+                    <input type="text" name="author" id="author" placeholder="Insert your name"  style="width: 100% "> <br>
+
+                    Your comment 
+                    <span id="commentErr" style="color: red;"></span> <br>
+                    <textarea name="text" id="coment-content" cols="30" rows="5" placeholder="Insert your comment"  style="width: 100%"><?php if ($text !== "") echo $text; ?></textarea> <br>
+                    
+                    <br>
+                    <button id="add-comment" type="submit" class="btn btn-default">Send</button> <br>
+                </form>
+            </div>
+
+            <script src="create-comments.js"></script>
 
             <?php include 'comments.php'; ?>
             
